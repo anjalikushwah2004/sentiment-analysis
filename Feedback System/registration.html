@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Responsive Registration Form | CodingLab </title>
+  <link rel="stylesheet" href="registration.css">
+</head>
+<body>
+  
+ <div class="justify-center">
+         <input type="checkbox" id="show">
+         <label for="show" class="show-btn" onclick="show()">View Form</label>
+ </div>
+
+  
+        <script >
+          function show(){
+            document.body.innerHTML=`<div class="container">
+    <div class="title">Registration</div>
+    <div class="content">
+      <!-- Registration form -->
+      <form action="#">
+        <div class="user-details">
+          <!-- Input for Full Name -->
+          <div class="input-box">
+            <span class="details">Full Name</span>
+            <input type="text" id="fullname" placeholder="Enter your name" required>
+          </div>
+          <!-- Input for Username -->
+          <div class="input-box">
+            <span class="details">Username</span>
+            <input type="text" id="uname" placeholder="Enter your username" required>
+          </div>
+          <!-- Input for Email -->
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="text" id="emailid"  placeholder="Enter your email" required>
+          </div>
+          <!-- Input for Phone Number -->
+          <div class="input-box">
+            <span class="details">Phone Number</span>
+            <input type="text" id="phone no." placeholder="Enter your number" required>
+          </div>
+          <!-- Input for Password -->
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="text" id="pasward" placeholder="Enter your password" required>
+          </div>
+          <!-- Input for Confirm Password -->
+          <div class="input-box">
+            <span class="details">Confirm Password</span>
+            <input type="text" id="confirm pasward" placeholder="Confirm your password" required>
+          </div>
+        </div>
+        <div class="gender-details">
+          <!-- Radio buttons for gender selection -->
+          <input type="radio" name="gender" id="dot-1">
+          <input type="radio" name="gender" id="dot-2">
+          <input type="radio" name="gender" id="dot-3">
+          <span class="gender-title">Gender</span>
+          <div class="category">
+            <!-- Label for Male -->
+            <label for="dot-1">
+              <span class="dot one"></span>
+              <span class="gender">Male</span>
+            </label>
+            <!-- Label for Female -->
+            <label for="dot-2">
+              <span class="dot two"></span>
+              <span class="gender">Female</span>
+            </label>
+            <!-- Label for Prefer not to say -->
+            <label for="dot-3">
+              <span class="dot three"></span>
+              <span class="gender">Prefer not to say</span>
+            </label>
+          </div>
+        </div>
+
+     <input type="radio" name="datatype" id="dot-4">
+          <input type="radio" name="datatype" id="dot-5">
+           <span class="gender-title">Data Type</span>
+          <div class="category">
+            <!-- Label for Male -->
+            
+            <label for="dot-4">
+              <span class="dot four"></span>
+              <span class="gender">student</span>
+            </label>
+             <!-- Label for Female -->
+            <label for="dot-5">
+              <span class="dot five"></span>
+              <span class="gender">admin</span>
+            </label>
+            </div>
+            
+    
+        <div class="button">
+          <!-- Submit button to register -->  
+          <button onclick="saveUsername()">register</button>
+        </div>
+        </div>
+        <div>
+         <p> already have an account ?<a href="login.html">LOGIN</a></p>
+        </div>`
+          }
+          var listOfStudents = []
+
+function saveUsername() {
+ 
+    var uname = document.getElementById("uname").value
+    var emailid = document.getElementById("emailid").value
+    var fullname = document.getElementById("fullname").value
+    var phone = document.getElementById("phone no.").value
+    var pasward = document.getElementById("pasward").value
+    var confirm  = document.getElementById("confirm pasward").value
+    var studentObject = {
+        username: uname,
+        emailid: emailid,
+        fullname: fullname,
+        phone: phone,
+        pasward: pasward,
+        confirm : confirm 
+    }
+    listOfStudents.push(studentObject)
+    localStorage.setItem("students", JSON.stringify(listOfStudents))
+    
+}
+function showStudentData() {
+    var dataInString = localStorage.getItem("students")
+    var listOfStudents = JSON.parse(dataInString)
+    document.getElementById("student-data").innerHTML =
+        listOfStudents.map((student, i) =>
+            `<div style="box-shadow: 1px 1px 5px 1px gray;
+     padding: 20px;margin: 20px;">
+    <button onclick="deleteStudent(${i})">Delete</button>
+            <h1>Username: ${student.username}</h1>
+    <h1> Email ID: ${student.emailid}</h1>
+    <h1> Full Name: ${student.fullname}</h1>
+    <h1> City: ${student.city} </h1></div>`
+        )
+}
+function deleteStudent(index){
+    var modifiedList = listOfStudents.splice(index, 1)
+    localStorage.setItem("students", JSON.stringify(listOfStudents))
+    showStudentData()
+}
+
+        </script>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

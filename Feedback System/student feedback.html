@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>Student Feedback and Evaluation System</title>
+    <style>
+      /* Reset and base */
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #6a11cb 0%, pink 100%);
+        margin: 0;
+        padding: 10px;
+        color: #fff;
+        min-height: 600px;
+        max-width: 350px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-weight: 700;
+        font-size: 1.8em;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+      }
+      form {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+      }
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        font-size: 0.9em;
+      }
+      input[type="text"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 8px 10px;
+        border: none;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        font-size: 0.95em;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 60px;
+        max-height: 120px;
+      }
+      button {
+        background-color: #6a11cb;
+        border: none;
+        padding: 12px 20px;
+        color: #fff;
+        font-weight: 700;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 1em;
+        box-shadow: 0 6px 8px rgba(37, 117, 252, 0.4);
+        transition: background-color 0.25s ease;
+      }
+      button:hover,
+      button:focus {
+        background-color: palevioletred;
+        outline: none;
+      }
+      .feedback-list {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 10px 15px;
+        max-height: 310px;
+        overflow-y: auto;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+      .feedback-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 8px 0;
+      }
+      .feedback-item:last-child {
+        border-bottom: none;
+      }
+      .student-name {
+        font-weight: 700;
+        font-size: 1em;
+      }
+      .course {
+        font-style: italic;
+        font-size: 0.9em;
+        opacity: 0.9;
+      }
+      .rating {
+        margin: 5px 0;
+      }
+      .comments {
+        font-size: 0.9em;
+        margin-top: 3px;
+        white-space: pre-wrap;
+      }
+      .stars {
+        color: #ffd700;
+        font-size: 1.1em;
+      }
+      .summary {
+        margin-top: 20px;
+        padding: 10px 15px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        font-weight: 600;
+        font-size: 1em;
+      }
+      @media (max-width: 360px) {
+        body {
+          max-width: 100vw;
+          padding: 8px;
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Student Feedback System</h1>
+    <form id="feedbackForm" autocomplete="off" novalidate>
+      <label for="studentName">Faculty Name *</label>
+      <input
+        type="text"
+        id="facultyName"
+        name="facultyName"
+        placeholder="Your name"
+        required
+        minlength="2"
+        maxlength="50"
+      />
+
+      <label for="courseName">Course / Class *</label>
+      <input
+        type="text"
+        id="courseName"
+        name="courseName"
+        placeholder="Course name"
+        required
+        minlength="2"
+        maxlength="50"
+      />
+
+      <label for="rating">Subject knowledge</label>
+      <select id="rating" name="rating" required>
+        <option value="" disabled selected>Select rating</option>
+        <option value="1">1 - Poor</option>
+        <option value="2">2 - Fair</option>
+        <option value="3">3 - Good</option>
+        <option value="4">4 - Very Good</option>
+        <option value="5">5 - Excellent</option>
+      </select>
+
+      <label for="rating">Providing notes</label>
+      <select id="rating" name="rating" required>
+        <option value="" disabled selected>Select rating</option>
+        <option value="1">1 - Poor</option>
+        <option value="2">2 - Fair</option>
+        <option value="3">3 - Good</option>
+        <option value="4">4 - Very Good</option>
+        <option value="5">5 - Excellent</option>
+      </select>
+
+      <label for="rating">Explaination</label>
+      <select id="rating" name="rating" required>
+        <option value="" disabled selected>Select rating</option>
+        <option value="1">1 - Poor</option>
+        <option value="2">2 - Fair</option>
+        <option value="3">3 - Good</option>
+        <option value="4">4 - Very Good</option>
+        <option value="5">5 - Excellent</option>
+      </select>
+
+      <label for="rating">Punctuality</label>
+      <select id="rating" name="rating" required>
+        <option value="" disabled selected>Select rating</option>
+        <option value="1">1 - Poor</option>
+        <option value="2">2 - Fair</option>
+        <option value="3">3 - Good</option>
+        <option value="4">4 - Very Good</option>
+        <option value="5">5 - Excellent</option>
+      </select>
+
+      <label for="comments">Comments</label>
+      <textarea
+        id="comments"
+        name="comments"
+        placeholder="Your feedback (optional)"
+        maxlength="300"
+      ></textarea>
+
+      <button type="submit">Submit Feedback</button>
+    </form>
+
+    <section>
+      <h2>Submitted Feedback</h2>
+      <div
+        class="feedback-list"
+        id="feedbackList"
+        aria-live="polite"
+        aria-relevant="additions"
+      ></div>
+    </section>
+
+    <section class="summary" id="evaluationSummary" aria-live="polite">
+      Loading feedback summary...
+    </section>
+
+    <script>
+      (() => {
+        const form = document.getElementById("feedbackForm");
+        const feedbackList = document.getElementById("feedbackList");
+        const evaluationSummary = document.getElementById("evaluationSummary");
+        const STORAGE_KEY = "student_feedbacks";
+
+        function loadFeedbacks() {
+          const stored = localStorage.getItem(STORAGE_KEY);
+          if (!stored) return [];
+          try {
+            return JSON.parse(stored);
+          } catch {
+            return [];
+          }
+        }
+
+        function saveFeedbacks(feedbacks) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(feedbacks));
+        }
+
+        function createStars(rating) {
+          let starMarkup = "";
+          for (let i = 1; i <= 5; i++) {
+            starMarkup += i <= rating ? "★" : "☆";
+          }
+          return (
+            <span class="stars" aria-label="${rating} out of 5 stars">
+              ${starMarkup}
+            </span>
+          );
+        }
+
+        function renderFeedbacks(feedbacks) {
+          if (feedbacks.length === 0) {
+            feedbackList.innerHTML = "<p>No feedback submitted yet.</p>";
+            evaluationSummary.textContent = "No feedback submitted yet.";
+            return;
+          }
+          // Build feedback items HTML
+          feedbackList.innerHTML = feedbacks
+            .map(({ studentName, courseName, rating, comments }) => {
+              return `
+              <article class="feedback-item" tabindex="0">
+                <div class="faculty-name">${escapeHtml(facultyName)}</div>
+                <div class="course">${escapeHtml(courseName)}</div>
+                <div class="rating">${createStars(rating)}</div>
+                <div class="comments">${escapeHtml(
+                  comments || "(No comments)"
+                )}</div>
+              </article>
+            `;
+            })
+            .join("");
+
+          // Calculate summary
+          const total = feedbacks.length;
+          const sumRating = feedbacks.reduce(
+            (acc, f) => acc + parseInt(f.rating),
+            0
+          );
+          const avgRating = (sumRating / total).toFixed(2);
+          evaluationSummary.textContent = `Average Rating: ${avgRating} out of 5 (${total} feedbacks)`;
+          evaluationSummary.setAttribute("aria-live", "polite");
+        }
+
+        function escapeHtml(text) {
+          if (!text) return "";
+          return text.replace(/[&<>"']/g, (m) => {
+            switch (m) {
+              case "&":
+                return "&amp;";
+              case "<":
+                return "&lt;";
+              case ">":
+                return "&gt;";
+              case '"':
+                return "&quot;";
+              case "'":
+                return "&#039;";
+              default:
+                return m;
+            }
+          });
+        }
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+          }
+          const newFeedback = {
+            facultyName: form.facultyName.value.trim(),
+            courseName: form.courseName.value.trim(),
+            rating: form.rating.value,
+            comments: form.comments.value.trim(),
+          };
+          const feedbacks = loadFeedbacks();
+          feedbacks.push(newFeedback);
+          saveFeedbacks(feedbacks);
+          renderFeedbacks(feedbacks);
+          form.reset();
+          form.facultyName.focus();
+          alert("Thank you for your feedback!");
+        });
+
+        // Initial render
+        renderFeedbacks(loadFeedbacks());
+      })();
+    </script>
+  </body>
+</html>

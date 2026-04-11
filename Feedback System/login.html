@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Popup Login Form Design | CodingNepal</title>
+      <link rel="stylesheet" href="login.css">
+
+   </head>
+   <body>
+      <div class="center">
+         <input type="checkbox" id="show">
+         <label for="show" class="show-btn">View Form</label>
+         <div class="container">
+            <label for="show" class="close-btn fas fa-times" title="close"></label>
+            <div class="text">
+               Login Form
+            </div>
+            <form action="#">
+               <div class="data">
+                  <label>User Name</label>
+                  <input type="text" id="uname" required>
+               </div>
+               <div class="data">
+                  <label>Password</label>
+                  <input type="password" id="pwd" required>
+               </div>
+               <div class="forgot-pass">
+                  <a href="#">Forgot Password?</a>
+               </div>
+              
+               <div class="btn">
+                  <div class="inner"></div>
+                  <button type="submit" onclick=" login()">login</button>
+               </div>
+               <div class="signup-link">
+                  Not a member? <a href="registration.html">Signup now</a>
+               </div>
+               <script>
+                  function login() {
+                      var uname = document.getElementById("uname").value
+                      var pwd = document.getElementById("pwd").value
+                      var h1ele = document.getElementById("msg")
+                      var type = document.getElementsByName("type");
+                      var usertype = "";
+                       for (var i = 0; i < 2; i++) {
+                      if (type[i].checked) {
+                       usertype = type[i].value;
+                       break;
+                      }
+                  }           
+                      if (uname == "") {
+                      h1ele.innerHTML = "please fill username"
+                      return
+                      }
+                      else if (pwd == "") {
+                      h1ele.innerHTML = "please fill password"
+                      return
+                      }
+                      // Get users from localStorage
+                      var listOfusers = JSON.parse(localStorage.getItem("user")) || [];
+                      // Check if the user exists and the password matches
+                    var userFound = false;
+                 for (var i = 0; i < listOfusers.length; i++) {
+                   if (listOfusers[i].username == uname && listOfusers[i].password == pwd && listOfusers[i].type == usertype) {
+                    userFound = true;
+                    break;
+                     }
+                  }
+                   // If the user is found, login is successful
+              if (userFound) {
+                  // check usertype and show different success messages
+                  if (usertype=="admin"){
+                      h1ele.innerHTML = "Admin login successful!";
+                      window.location.href=("ques.html");
+                  } else if (usertype=="student"){
+                      h1ele.innerHTML = "student login succussfull";
+                      window.location.href=("optend.html");
+                  }
+                h1ele.innerHTML = "Login successful!";
+                return
+              } else {
+                h1ele.innerHTML = "Login Failed. Please try again.";
+                return
+              }
+          }
+              </script>
+          </body>
+          
+          </html>
+    
+       
+            </form>
+         </div>
+      </div>
+   </body>
+</html>
