@@ -1,0 +1,131 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,intial-scale=1">
+        <title>form data in sheets</title>
+ <style type="text/css">
+            *
+            {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background:rgb(2, 65, 109);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      width: 350px;
+      
+    }
+
+    .login-container h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #333;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .login-container input[type="text"]:focus,
+    .login-container input[type="password"]:focus {
+      border-color: #667eea;
+    }
+
+    .login-container input[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      background-color: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .login-container input[type="submit"] :hover {
+      background-color: #2b2d41;
+    }
+
+    .login-container .register-link {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 14px;
+    }
+
+    .login-container .register-link a {
+      color: #667eea;
+      text-decoration: none;
+    }
+
+    .login-container .register-link a:hover {
+      text-decoration: underline;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-size: 20px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #bbb;
+      border-radius: 5px;
+      font-size:18px;
+    }
+    
+           
+        </style>
+    </head>
+    <body>
+        <div class="login-container">
+            <h1>Login</h1>
+        <form name="submit-to-google-sheet">
+            <label>Email:</label>
+            <input type="email" name="name" required>
+           
+            <lable>password:</lable>
+            <input type="password" name="password" required><br><br>
+            <input type="submit" name="submit">
+            <div class="register-link">
+                Create a new account? <a href ="Signup.html">Signup</a>
+              </div>
+        </form>
+        <script>
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzLIqYg3EwR8RWEMTg-va_TlFkG31-DAop0-r5idQeWupjVhhMBPcWfTUjvLYVm-HFD/exec'
+            const form = document.forms['submit-to-google-sheet']
+          
+            form.addEventListener('submit', e => {
+              e.preventDefault()
+              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => console.log('Success!', response))
+                .catch(error => console.error('Error!', error.message))
+            })
+          </script>
+          
+  </section>
+
+         
+ </div>
+    </body>
+</html>                  
