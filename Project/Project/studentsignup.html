@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Signup - Leave Portal</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(to right, #2b5876, #4e4376);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .signup-container {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .signup-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        font-weight: 500;
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+      }
+
+      button {
+        width: 100%;
+        background-color: #2b5876;
+        color: white;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        margin-top: 10px;
+      }
+
+      button:hover {
+        background-color: #1d3f54;
+      }
+
+      .login-link {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 14px;
+      }
+
+      .login-link a {
+        color: #2b5876;
+        text-decoration: none;
+      }
+
+      .login-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="signup-container">
+      <h2>Student Signup</h2>
+      <form id="signupform" action="insert.php" method="POST">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="branch">Branch</label>
+          <select id="branch" name="branch" onchange="updateOptions()" required>
+            <option value="">Select Branch</option>
+            <option value="cs">Computer Science</option>
+            <option value="ee">Electrical & Electronics</option>
+            <option value="me">Mechanical</option>
+            <option value="ce">Civil</option>
+            <option value="mba">MBA</option>
+            <option value="mca">MCA</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="year">Year</label>
+          <select id="year" name="year" required>
+            <option>Select Year</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="semester">Semester</label>
+          <select id="semester" name="semester" required>
+            <option>Select Semester</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Set Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <button type="submit">Create Account</button>
+
+        <div class="login-link">
+          Already have an account? <a href="studentlog.html">Login here</a>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      function updateOptions() {
+        const branch = document.getElementById("branch").value;
+        const year = document.getElementById("year");
+        const semester = document.getElementById("semester");
+
+        year.innerHTML = "<option>Select Year</option>";
+        semester.innerHTML = "<option>Select Semester</option>";
+
+        if (branch === "mba" || branch === "mca") {
+          // Year 1-2
+          for (let i = 1; i <= 2; i++) {
+            year.innerHTML += `<option>${i}</option>`;
+          }
+          // Semester 1-4
+          for (let i = 1; i <= 4; i++) {
+            semester.innerHTML += `<option>${i}</option>`;
+          }
+        } else {
+          // Year 1-4
+          for (let i = 1; i <= 4; i++) {
+            year.innerHTML += `<option>${i}</option>`;
+          }
+          // Semester 1-8
+          for (let i = 1; i <= 8; i++) {
+            semester.innerHTML += `<option>${i}</option>`;
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

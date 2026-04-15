@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Feedback Form</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: rgb(5, 106, 201);;
+      }
+      .card {
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+      }
+      .card-title {
+        font-weight: bold;
+      }
+      .nav-tabs .nav-link {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Student Feedback Form</h2>
+
+      <!-- Student Info Section -->
+      <form
+        action="connect.php" method="POST" class="border p-4 bg-white needs-validation" id="feedbackForm" novalidate
+      >
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="department" class="form-label">Select Department</label>
+            <select
+              class="form-select"
+              id="department"
+              name="department"
+              onchange="loadTeachers()"
+              required
+            >
+              <option value="" selected disabled>Choose Department</option>
+              <option value="CSE">Computer Science</option>
+              <option value="ECE">Electrical & Electronics</option>
+              <option value="ME">Mechanical</option>
+              <option value="CE">Civil</option>
+              <option value="MCA">MCA</option>
+              <option value="MBA">MBA</option>
+            </select>
+            <div class="invalid-feedback">Please select a department.</div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="semester" class="form-label">Select Semester</label>
+            <select
+              class="form-select"
+              id="semester"
+              name="semester"
+              required
+            >
+              <option value="" selected disabled>Choose Semester</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+            </select>
+            <div class="invalid-feedback">Please select a semester.</div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="student_id" class="form-label">Student ID</label>
+            <input
+              type="text"
+              class="form-control"
+              id="student_id"
+              name="student_id"
+              required
+            />
+            <div class="invalid-feedback">Student ID is required.</div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-3" id="feedbackTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="faculty-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#faculty"
+              type="button"
+              role="tab"
+            >
+              Faculty
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="placement-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#placement"
+              type="button"
+              role="tab"
+            >
+              Placements
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="curriculum-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#curriculum"
+              type="button"
+              role="tab"
+            >
+              Curriculum Activities
+            </button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="feedbackTabContent">
+          <!-- Faculty Tab -->
+          <div
+            class="tab-pane fade show active"
+            id="faculty"
+            role="tabpanel"
+            aria-labelledby="faculty-tab"
+          >
+            <div id="teacherFeedback"></div>
+          </div>
+
+          <!-- Placement Tab -->
+          <div
+            class="tab-pane fade"
+            id="placement"
+            role="tabpanel"
+            aria-labelledby="placement-tab"
+          >
+            <h5>Training & Placement Feedback</h5>
+            <div class="mb-3">
+              <label class="form-label">How helpful was the placement training?</label>
+              <select class="form-select" name="placement_training" required>
+                <option value="">Select an option</option>
+                <option>Excellent</option>
+                <option>Good</option>
+                <option>Average</option>
+                <option>Poor</option>
+              </select>
+              <div class="invalid-feedback">This field is required.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Are you satisfied with the placement opportunities provided?</label>
+              <select class="form-select" name="placement_opportunities" required>
+                <option value="">Select an option</option>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+              <div class="invalid-feedback">This field is required.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Suggestions for improvement</label>
+              <textarea
+                class="form-control"
+                name="placement_suggestions"
+                rows="3"
+                placeholder="Your suggestions..."
+                required
+              ></textarea>
+              <div class="invalid-feedback">This field is required.</div>
+            </div>
+          </div>
+
+          <!-- Curriculum Tab -->
+          <div
+            class="tab-pane fade"
+            id="curriculum"
+            role="tabpanel"
+            aria-labelledby="curriculum-tab"
+          >
+            <h5>Curriculum & Activities Feedback</h5>
+            <div class="mb-3">
+              <label class="form-label">Are the curriculum activities useful for your learning?</label>
+              <select class="form-select" name="curriculum_usefulness" required>
+                <option value="">Select an option</option>
+                <option>Strongly Agree</option>
+                <option>Agree</option>
+                <option>Neutral</option>
+                <option>Disagree</option>
+              </select>
+              <div class="invalid-feedback">This field is required.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Do extracurricular activities support your skill development?</label>
+              <select class="form-select" name="extra_activities" required>
+                <option value="">Select an option</option>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+              <div class="invalid-feedback">This field is required.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Suggestions for new activities</label>
+              <textarea
+                class="form-control"
+                name="curriculum_suggestions"
+                rows="3"
+                placeholder="Your suggestions..."
+                required
+              ></textarea>
+              <div class="invalid-feedback">This field is required.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="text-end mt-4">
+          <input type="submit" class="btn btn-primary" name="submit" value="Submit Feedback" />
+          <br /><br />
+        </div>
+      </form>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      const teachersByDept = {
+        CSE: [
+          "Mr_Ankit_Bakshi",
+          "Aashta_Sharma",
+          "Mrs_Shraddha_Paliwal",
+          "Eshita_Maheshwari",
+          "Mr_Sachin_Malviya",
+          "Ms_Shikhi_Guru",
+          "Mrs_Bina_Pal",
+          "Mrs_Nikita_Sen",
+        ],
+        ECE: [
+          "Mr_Amit_Kanugo",
+          "Mr_Santosh_Mourya",
+          "Mr_Ramakant_Shukla",
+          "Mr_Dilip_Kushwah",
+        ],
+        ME: [
+          "Mr_Y_P_Ladhe",
+          "Mr_Sanidhya_Nagar",
+          "Mr_Vipul_Upadhayay",
+          "Mr_Piyush_Vishwakarma",
+        ],
+        CE: [
+          "Mr_Ashish_Paliwal",
+          "Mrs_Namrata_Sisodiya",
+          "Mr_Ashok_Ingle",
+          "Ms_Raksha_Patel",
+        ],
+        MCA: [
+          "Mrs_Rachita_Vyas",
+          "Mr_Rajesh_Gyanchandani",
+          "Mrs_Anjali_Paliwal",
+          "Mrs_Farhat_Anjum Khan",
+          "Ms_Pavneet_Kaur_Saluja",
+        ],
+        MBA: [
+          "Mr_Sunny_Savle",
+          "Mrs_Ashwini_Kashyap",
+          "Mrs_Pranchi_Nagore",
+          "MRs_Ritika_Desai",
+          "Mrs_Priyanka_Tanwar",
+        ],
+      };
+
+      function loadTeachers() {
+        const dept = document.getElementById("department").value;
+        const teachers = teachersByDept[dept] || [];
+        const container = document.getElementById("teacherFeedback");
+        container.innerHTML = "";
+
+        teachers.forEach((teacher) => {
+          const card = document.createElement("div");
+          card.className = "card mb-3";
+          card.innerHTML = `
+            <div class="card-body">
+              <h6 class="card-title">Feedback for ${teacher}</h6>
+              <div class="mb-2">
+                <label class="form-label">Teaching Quality</label>
+                <select class="form-select" name="${teacher}_teaching" required>
+                  <option value="">Select an option</option>
+                  <option>Excellent</option>
+                  <option>Good</option>
+                  <option>Average</option>
+                  <option>Poor</option>
+                </select>
+                <div class="invalid-feedback">This field is required.</div>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Communication Skills</label>
+                <select class="form-select" name="${teacher}_communication" required>
+                  <option value="">Select an option</option>
+                  <option>Excellent</option>
+                  <option>Good</option>
+                  <option>Average</option>
+                  <option>Poor</option>
+                </select>
+                <div class="invalid-feedback">This field is required.</div>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Subject Knowledge</label>
+                <select class="form-select" name="${teacher}_knowledge" required>
+                  <option value="">Select an option</option>
+                  <option>Excellent</option>
+                  <option>Good</option>
+                  <option>Average</option>
+                  <option>Poor</option>
+                </select>
+                <div class="invalid-feedback">This field is required.</div>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      // Bootstrap form validation
+      (function () {
+  "use strict";
+  const form = document.getElementById("feedbackForm");
+
+  form.addEventListener("submit", function (event) {
+    if (!form.checkValidity()) {
+      // ❌ If invalid → prevent submission
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    // ✅ Always add Bootstrap validation styles
+    form.classList.add("was-validated");
+  });
+})();
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

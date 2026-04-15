@@ -1,0 +1,126 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,intial-scale=1">
+<title>Login Form</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: rgb(2, 65, 109);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  width: 350px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+input[type="submit"] {
+  background: #667eea;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background: #2b2d41;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-container">
+<h1>Login</h1>
+
+<form name="submit-to-google-sheet">
+
+  <label>Email:</label>
+  <input type="email" name="email" required>
+
+  <label>Password:</label>
+  <input type="password" name="password" required>
+
+  <input type="submit" value="Login">
+
+  <div class="register-link">
+    Create new account? <a href="studentsignup.html">Signup</a>
+  </div>
+
+</form>
+</div>
+
+<script>
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzLIqYg3EwR8RWEMTg-va_TlFkG31-DAop0-r5idQeWupjVhhMBPcWfTUjvLYVm-HFD/exec';
+
+const form = document.forms['submit-to-google-sheet'];
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  // Google Sheet se data fetch
+  const res = await fetch(scriptURL + "?email=" + email);
+  const data = await res.json();
+
+  if (!data || data.length === 0) {
+    alert("User not found");
+    return;
+  }
+
+  const student = data[0];
+
+  // PASSWORD CHECK
+  if (student.password !== password) {
+    alert("Wrong password");
+    return;
+  }
+
+  // ATTENDANCE CHECK (MAIN REQUIREMENT)
+  if (parseFloat(student.attendance) < 75) {
+    alert(" Apki attendance 75% se kam hai. Aap feedback nahi de sakte.");
+    return;
+  }
+
+  // SUCCESS
+  alert(" Login successful! You can give feedback now.");
+  window.location.href = "Feedback_form.html";
+});
+</script>
+
+</body>
+</html>
